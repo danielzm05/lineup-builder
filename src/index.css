@@ -29,6 +29,10 @@ body {
   background: var(--background1);
 }
 
+button{
+  border: none;
+  cursor: pointer;
+}
 label {
   display: flex;
   flex-direction: column;

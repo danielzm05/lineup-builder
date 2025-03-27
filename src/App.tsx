@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { lineups } from "./utils/lineups";
 import { Player } from "./components/Player";
+import html2canvas from 'html2canvas';
 import "./App.css";
 
 interface FormState {
@@ -18,6 +19,19 @@ function App() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormValues((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleCaptureClick = async () => {
+    const fieldElmt =
+      document.querySelector<HTMLElement>('.field-container');
+    if (!fieldElmt) return;
+
+    const canvas = await html2canvas(fieldElmt);
+    const dataURL = canvas.toDataURL('image/png');
+    const link = document.createElement("a");
+    link.href = dataURL;
+    link.download = `lineup.png`;
+    link.click();
   };
 
   return (
@@ -43,6 +57,7 @@ function App() {
             <input type="checkbox" name="rotate" id="rotate" onChange={()=>setRotate(!rotate)}/>
           </label>
         </form>
+        <button className="btn-download" onClick={handleCaptureClick}>Save as Image</button>
       </section>
       <section className="field-container ">
         <header>
