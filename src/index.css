@@ -36,7 +36,7 @@ label {
   font-weight: 500;
 
   & select,
-  input {
+  input[type="text"] {
     background: var(--background3);
     color: var(--text1);
     font-size: 1rem;
@@ -45,7 +45,12 @@ label {
     border: none;
   }
 
-  & select {
+  & input[type="checkbox"] {
+    width: 20px;
+  }
+
+  & select,
+  input[type="checkbox"] {
     cursor: pointer;
   }
 }
