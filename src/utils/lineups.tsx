@@ -44,7 +44,7 @@ export const lineups: Lineup[] = [
   {
     formation: "4-1-4-1",
     style: `". . area9 . ."
-      "area11 area8 area10 area7"
+      "area11 area8 . area10 area7"
       ". . area5 . ."
       "area3 area2 . area6 area4"
       ". . area1 . ."`,

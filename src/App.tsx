@@ -1,19 +1,24 @@
 import { useState } from "react";
 import { lineups } from "./utils/lineups";
-import { Player } from "./components/Player";
-import html2canvas from 'html2canvas';
+import { fieldOptions } from "./utils/fieldOptions";
+import { Field } from "./components/Field";
+import html2canvas from "html2canvas";
 import "./App.css";
 
 interface FormState {
   teamName: string;
   lineupSelected: number;
+  fieldSelected: number;
+  jerseyColor: string;
 }
 
 function App() {
-  const [rotate, setRotate] = useState(false)
+  const [rotate, setRotate] = useState(false);
   const [formValues, setFormValues] = useState<FormState>({
     teamName: "",
     lineupSelected: 0,
+    fieldSelected: 0,
+    jerseyColor: "#00506a",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -22,12 +27,11 @@ function App() {
   };
 
   const handleCaptureClick = async () => {
-    const fieldElmt =
-      document.querySelector<HTMLElement>('.field-container');
+    const fieldElmt = document.querySelector<HTMLElement>(".field-container");
     if (!fieldElmt) return;
 
     const canvas = await html2canvas(fieldElmt);
-    const dataURL = canvas.toDataURL('image/png');
+    const dataURL = canvas.toDataURL("image/png");
     const link = document.createElement("a");
     link.href = dataURL;
     link.download = `lineup.png`;
@@ -52,32 +56,39 @@ function App() {
               ))}
             </select>
           </label>
+          <div className="field-options">
+            <p>Field Style:</p>
+            <ul>
+              {fieldOptions.map((o, i) => (
+                <li
+                  className="field-option"
+                  style={{ background: o.style }}
+                  onClick={() => setFormValues((prev) => ({ ...prev, fieldSelected: i }))}
+                ></li>
+              ))}
+            </ul>
+          </div>
+          <label>
+            Jersey:
+            <input type="color" name="jerseyColor" onChange={handleChange} />
+          </label>
           <label htmlFor="rotate">
             3D
-            <input type="checkbox" name="rotate" id="rotate" onChange={()=>setRotate(!rotate)}/>
+            <input type="checkbox" name="rotate" id="rotate" onChange={() => setRotate(!rotate)} />
           </label>
         </form>
-        <button className="btn-download" onClick={handleCaptureClick}>Save as Image</button>
+        <button className="btn-download" onClick={handleCaptureClick}>
+          Save as Image
+        </button>
       </section>
-      <section className="field-container ">
-        <header>
-          <p>{formValues.teamName}</p>
-          <p>{lineups[formValues.lineupSelected].formation}</p>
-        </header>
-        <div className={`field ${rotate && 'rotate'}`} style={{ gridTemplateAreas: lineups[formValues.lineupSelected].style }}>
-          <Player number={1} name={"GK"} />
-          <Player number={2} name={"GK"} />
-          <Player number={3} name={"GK"} />
-          <Player number={4} name={"GK"} />
-          <Player number={5} name={"GK"} />
-          <Player number={6} name={"GK"} />
-          <Player number={7} name={"GK"} />
-          <Player number={8} name={"GK"} />
-          <Player number={9} name={"GK"} />
-          <Player number={10} name={"GK"} />
-          <Player number={11} name={"GK"} />
-        </div>
-      </section>
+      <Field
+        teamName={formValues.teamName}
+        formation={lineups[formValues.lineupSelected].formation}
+        gridArea={lineups[formValues.lineupSelected].style}
+        fieldStyle={fieldOptions[formValues.fieldSelected].style}
+        jerseyColor={formValues.jerseyColor}
+        rotate={rotate}
+      />
     </main>
   );
 }

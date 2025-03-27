@@ -1,0 +1,94 @@
+.field-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 100%;
+  perspective: 1900px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--background3);
+
+  & header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--background2);
+    font-weight: 500;
+    padding: 10px;
+    color: var(--text1);
+  }
+
+  .rotate {
+    -webkit-transform: scale3d(1, 1, 2) rotate3d(1, 0, 0, 35deg);
+    transform: scale3d(1, 1, 2) rotate3d(1, 0, 0, 35deg);
+    max-height: 1000px;
+    max-width: 500px;
+    border: 2px solid white;
+  }
+
+  & .field {
+    position: relative;
+    flex: 1;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    padding: 8px 30px;
+    background-size: 60px 60px;
+    border-radius: 0 0 10px 10px;
+    border: 3px solid white;
+
+    & .area {
+      position: absolute;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      width: 340px;
+      height: 130px;
+      border: 3px solid white;
+      border-bottom: none;
+
+      & .area-2 {
+        width: 200px;
+        height: 70px;
+        border: 3px solid white;
+        border-bottom: none;
+      }
+    }
+
+    & :nth-child(1) {
+      grid-area: area1;
+    }
+    & :nth-child(2) {
+      grid-area: area2;
+    }
+    & :nth-child(3) {
+      grid-area: area3;
+    }
+    & :nth-child(4) {
+      grid-area: area4;
+    }
+    & :nth-child(5) {
+      grid-area: area5;
+    }
+    & :nth-child(6) {
+      grid-area: area6;
+    }
+    & :nth-child(7) {
+      grid-area: area7;
+    }
+    & :nth-child(8) {
+      grid-area: area8;
+    }
+    & :nth-child(9) {
+      grid-area: area9;
+    }
+    & :nth-child(10) {
+      grid-area: area10;
+    }
+    & :nth-child(11) {
+      grid-area: area11;
+    }
+  }
+}
